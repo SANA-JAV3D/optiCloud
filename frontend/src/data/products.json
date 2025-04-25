@@ -1,0 +1,158 @@
+[
+  {
+    "_id": 1,
+    "name": "Plano Convex",
+    "category": "Spherical Singlet Lens",
+    "description": "OptiCloud's plano-convex lenses have a positive focal length and can be used to focus collimated light, to collimate a point source, or reduce the divergence angle of a diverging source.",
+    "price": 79.99,
+    "oldPrice": 99.99,
+    "url": "plano convex.png",
+    "rating": 4.5,
+    "author":"admin"
+  },
+  {
+    "_id": 2,
+    "name": "Bi Convex",
+    "category": "Spherical Singlet Lens",
+    "description": "Opticloud's bi-convex lenses are popular for many finite imaging applications. Bi-convex lenses are most suitable where the object and image are on opposite sides of the lens and the ratio of the image and object distances (conjugate ratio) is between 0.2 and 5.",
+    "price": 149.99,
+    "oldPrice": 199.99,
+    "url": "biconvex.png",
+    "rating": 4.0
+  },
+  {
+    "_id": 3,
+    "name": "Plano Concave",
+    "category": "Spherical Singlet Lens",
+    "description": "Plano-concave lenses diverge a collimated beam from a virtual focus and are commonly used in Galilean-type beam expanders. Given their negative focal length and negative spherical aberration, plano-concave lenses can be used to balance out aberrations of other lenses in the system. ",
+    "price": 199.99,
+    "url": "",
+    "rating": 4.7
+  },
+  {
+    "_id": 4,
+    "name": "Bi Concave",
+    "category": "Spherical Singlet Lens",
+    "description": "Bi-concave lenses have a negative focal length and are best used to diverge a converging beam. Bi-concave lenses can diverge a collimated beam to a virtual focus and are commonly used in Galilean-type beam expanders.",
+    "price": 19.99,
+    "url":"biconcave.jpg",
+    "rating": 4.2
+  },
+  {
+    "_id": 5,
+    "name": "Positive Meniscus",
+    "category": "Spherical Singlet Lens",
+    "description": "Positive meniscus lenses are used to decrease the focal length of another lens while maintaining the angular resolution of the optical assembly. These lenses are commonly used to achieve tighter beam focusing when paired with another positive lens.",
+    "price": 29.99,
+    "oldPrice": 39.99,
+    "url": "positive meniseus.png",
+    "rating": 4.3
+  },
+  {
+    "_id": 6,
+    "name": "Negative Meniscus",
+    "category": "Spherical Singlet Lens",
+    "description": "Negative meniscus lenses are designed to minimize spherical aberration. These N-BK7, UV fused silica, calcium fluoride, and zinc selenide lenses consist of a convex surface and a concave surface where the concave surface has the greater radius of curvature. In combination with another lens, a negative meniscus lens will decrease the NA of the system. A negative meniscus lens is a common element in beam expanding applications",
+    "price": 89.99,
+    "url": "negative meniseus.png",
+    "rating": 4.4
+  },
+    {
+      "_id": 7,
+      "name": "Aspheric diffuser",
+      "category": "Aspheric Lens",
+      "description": "",
+      "price": 299.99,
+      "oldPrice": 349.99,
+      "url": "aspheric diffuser.png",
+      "rating": 4.8
+    },
+    {
+      "_id": 8,
+      "name": "Aspheric Condenser",
+      "category": "Aspheric Lens",
+      "description": "",
+      "price": 39.99,
+      "url": "aspheric_condenser.jpg",
+      "rating": 4.1
+    },
+    {
+      "_id": 9,
+      "name": "Aspheric condenser with diffusers",
+      "category": "Aspheric Lens",
+      "description": "",
+      "price": 49.99,
+      "url": "condenser with diffuser.png",
+      "rating": 4.6
+    },
+    {
+      "_id": 10,
+      "name": "Achromatic doublets",
+      "category": "Achromatic Lens",
+      "description": "",
+      "price": 59.99,
+      "oldPrice": 79.99,
+      "url": "achromatic_doublets.png",
+      "rating": 3
+    },
+    {
+      "_id": 11,
+      "name": "Achromatic triplets",
+      "category": "Achromatic Lens",
+      "description": "",
+      "price": 59.99,
+      "oldPrice": 79.99,
+      "url": "achromatic_triplets.png",
+      "rating": 3
+    },
+    {
+      "_id": 12,
+      "name": "Cylindrical plano convex",
+      "category": "Cylindrical Lens",
+      "description": "Plano convex",
+      "price": 59.99,
+      "oldPrice": 79.99,
+      "url": "cylindrical plano convex.png",
+      "rating": 3
+    },
+    {
+      "_id": 13,
+      "name": "Cylindrical plano concave",
+      "category": "Cylindrical Lens",
+      "description": "",
+      "price": 59.99,
+      "oldPrice": 79.99,
+      "url": "cylindrical plano concave.png",
+      "rating": 3
+    },
+    {
+      "_id": 14,
+      "name": "Acylindrical",
+      "category": "Cylindrical Lens",
+      "description": "",
+      "price": 59.99,
+      "oldPrice": 79.99,
+      "url": "acylindrical.png",
+      "rating": 3
+    },
+    {
+      "_id": 15,
+      "name": "Powell lens",
+      "category": "Powell Lens",
+      "description": "",
+      "price": 59.99,
+      "oldPrice": 79.99,
+      "image": "",
+      "rating": 3
+    },
+    {
+      "_id": 16,
+      "name": "prism",
+      "category": "Prism",
+      "description": "",
+      "price": 59.99,
+      "oldPrice": 79.99,
+      "image": "",
+      "rating": 5
+    }
+  ]
