@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom'
 import { useLoginUserMutation } from '../redux/features/auth/authApi';
+import { setUser } from '../redux/features/auth/authSlice';
 
 const Login = () => {
 
@@ -9,7 +10,7 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const disptach = useDispatch();
+  const dispatch = useDispatch();
   const [loginUser, {isLoading: loginLoading}] = useLoginUserMutation()
   const navigate = useNavigate()
 
@@ -25,7 +26,7 @@ const Login = () => {
         const response = await loginUser(data).unwrap();
         console.log(response)
         const {token, user} = response;
-        disptach(setUser({user}))
+        dispatch(setUser({user}))
         alert("Login successful");
         navigate("/")
     } catch (error) {
@@ -38,7 +39,7 @@ const Login = () => {
      <section className='h-screen flex items-center justify-center'>
                 <div className='max-w-sm border shadow bg-white mx-auto p-8'>
                     <h2 className='text-2xl font-semibold pt-5'>Please Login</h2>
-                    <form className='space-y-5 max-w-sm mx-auto pt-8'>
+                    <form className='space-y-5 max-w-sm mx-auto pt-8' onSubmit={handleLogin}>
                         <input type="email" name="email" id="email"
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder='Email Address' required

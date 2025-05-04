@@ -4,8 +4,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import CartModal from '../pages/shop/CartModel'
 
 import avatarImg from "../assets/avatar.png"
-// import { useLogoutUserMutation } from '../redux/features/auth/authApi';
-// import { logout } from '../redux/features/auth/authSlice';
+import { useLogoutUserMutation } from '../redux/features/auth/authApi';
+import { logout } from '../redux/features/auth/authSlice';
 
 const Navbar = () => {
 
@@ -15,46 +15,47 @@ const Navbar = () => {
         setisCartOpen(!isCartOpen)
     }
 
-    // // show user if logged in
-    // // const dispatch =  useDispatch();
-    // // const {user} = useSelector((state) => state.auth);
-    // // // const [logoutUser] = useLogoutUserMutation();
-    // // const navigate = useNavigate()
+    //show user if logged in
+    const dispatch =  useDispatch();
+    const {user} = useSelector((state) => state.auth);
+    
+    const [logoutUser] = useLogoutUserMutation();
+    const navigate = useNavigate()
     
 
-    // // dropdown menus
-    // const [isDropDownOpen, setIsDropDownOpen] = useState(false);
-    // const handDropDownToggle = () => {
-    //     setIsDropDownOpen(!isDropDownOpen)
-    // }
+    // dropdown menus
+    const [isDropDownOpen, setIsDropDownOpen] = useState(false);
+    const handDropDownToggle = () => {
+        setIsDropDownOpen(!isDropDownOpen)
+    }
 
-    // // admin dropdown menus
-    // const adminDropDownMenus = [
-    //     {label: "Dashboard", path: "/dashboard/admin"},
-    //     {label: "Manage Items", path: "/dashboard/manage-products"},
-    //     {label: "All Orders", path: "/dashboard/manage-orders"},
-    //     {label: "Add Product", path: "/dashboard/add-product"},
-    // ]
+    // admin dropdown menus
+    const adminDropDownMenus = [
+        {label: "Dashboard", path: "/dashboard/admin"},
+        {label: "Manage Items", path: "/dashboard/manage-products"},
+        {label: "All Orders", path: "/dashboard/manage-orders"},
+        {label: "Add Product", path: "/dashboard/add-product"},
+    ]
 
-    // // user dropdown menus
-    // const userDropDownMenus = [
-    //     {label: "Dashboard", path: "/dashboard"},
-    //     {label: "Profile", path: "/dashboard/profile"},
-    //     {label: "Payments", path: "/dashboard/payments"},
-    //     {label: "Orders", path: "/dashboard/orders"},
-    // ]
+    // user dropdown menus
+    const userDropDownMenus = [
+        {label: "Dashboard", path: "/dashboard"},
+        {label: "Profile", path: "/dashboard/profile"},
+        {label: "Payments", path: "/dashboard/payments"},
+        {label: "Orders", path: "/dashboard/orders"},
+    ]
 
-    // const dropdownMenus = user?.role === 'admin' ? [...adminDropDownMenus] : [...userDropDownMenus]
+    const dropdownMenus = user?.role === 'admin' ? [...adminDropDownMenus] : [...userDropDownMenus]
 
-    // const handleLogout = async () => {
-    //     try {
-    //         await logoutUser().unwrap();
-    //         dispatch(logout())
-    //         navigate('/')
-    //     } catch (error) {
-    //         console.error("Failed to log out", error)
-    //     }
-    // }
+    const handleLogout = async () => {
+        try {
+            await logoutUser().unwrap();
+            dispatch(logout())
+            navigate('/')
+        } catch (error) {
+            console.error("Failed to log out", error)
+        }
+    }
 
     return (
         <header className='fixed-nav-bar w-nav'>
@@ -85,11 +86,10 @@ const Navbar = () => {
                         </button>
                     </span>
                     <span>
-                        <Link to="login">
-                        <i className="ri-user-line"></i>
-                        </Link>
-                        {/* {
+                    
+                        {
                           user &&  user ? (<>
+
                           <img 
                           onClick={handDropDownToggle}
                           src={user?.profileImage || avatarImg} alt="" className='size-6 rounded-full cursor-pointer'/>
@@ -105,7 +105,7 @@ const Navbar = () => {
                                                 className='dropdown-items' to={menu.path}>{menu.label}</Link>
                                             </li>
                                         ))}
-                                        <li><Link onClick={handleLogout} className='dropdown-items'>Logout</Link></li>
+                                      <li><Link onClick={handleLogout} className='dropdown-items'>Logout</Link></li>
                                     </ul>
                                 </div>
                             )
@@ -114,7 +114,7 @@ const Navbar = () => {
                           </>) : (<Link to="login">
                                 <i className="ri-user-line"></i>
                             </Link>)
-                        } */}
+                        } 
                         
                     </span>
                 </div>

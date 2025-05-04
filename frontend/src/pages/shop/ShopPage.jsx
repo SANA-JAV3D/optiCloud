@@ -16,34 +16,27 @@ const filters = {
 };
 
 const ShopPage = () => {
-    const [products, setproducts]=useState(productsData);
-
-
+    
     const [filtersState, setFiltersState] = useState({
         category: 'all',
         priceRange: ''
     });
 
-    const applyFilters = ()=>{
-        let filteredProducts= productsData;
+    const [currentPage, setCurrentPage] = useState(1);
+    const [ProductsPerPage] = useState(8);
 
-        //filter by category
-        if(filtersState.category && filtersState.category !== 'all'){
-            filteredProducts = filteredProducts.filter(product => product.category === filtersState.category)
-        }
+    const {category, priceRange } = filtersState;
+    const [minPrice, maxPrice] = priceRange.split('-').map(Number);
 
-        if(filtersState.priceRange){
-            const[minPrice, maxPrice]= filtersState.priceRange.split('-').map(Number);
-            filteredProducts = filteredProducts.filter(product => product.price >= minPrice && product.price <= maxPrice)
-        }
+    const { data: { products = [], totalPages, totalProducts } = {}, error, isLoading } = useFetchAllProductsQuery({
+        category: category !== 'all' ? category : '',
+        minPrice: isNaN(minPrice) ? '' : minPrice,
+        maxPrice: isNaN(maxPrice) ? '' : maxPrice,
+        page: currentPage,
+        limit: ProductsPerPage,
+    })
 
-        setproducts(filteredProducts)
-    }
-
-    useEffect(() => {
-        applyFilters()
-    },[filtersState])
-
+    
     // clear the filters
     const clearFilters = () => {
         setFiltersState({
@@ -52,35 +45,18 @@ const ShopPage = () => {
         })
     }
 
+    if (isLoading) return <div>Loading....</div>
+    if (error) return <div>Error loading products.</div>
 
+    const startProduct = (currentPage - 1) * ProductsPerPage + 1;
+    const endProduct = startProduct + products.length - 1;
 
-    // const [currentPage, setCurrentPage] = useState(1);
-    // const [ProductsPerPage] = useState(8);
-
-    // const { category, priceRange } = filtersState;
-    // const [minPrice, maxPrice] = priceRange.split('-').map(Number);
-
-    // const { data: { products = [], totalPages, totalProducts } = {}, error, isLoading } = useFetchAllProductsQuery({
-    //     category: category !== 'all' ? category : '',
-    //     minPrice: isNaN(minPrice) ? '' : minPrice,
-    //     maxPrice: isNaN(maxPrice) ? '' : maxPrice,
-    //     page: currentPage,
-    //     limit: ProductsPerPage,
-    // })
-
-    
     // handle page change
     const handlePageChange = (pageNumber) => {
         if(pageNumber > 0 && pageNumber <= totalPages) {
             setCurrentPage(pageNumber)
         }
     }
-
-    // if (isLoading) return <div>Loading....</div>
-    // if (error) return <div>Error loading products.</div>
-
-    // const startProduct = (currentPage - 1) * ProductsPerPage + 1;
-    // const endProduct = startProduct + products.length - 1;
 
     return (
         <>
@@ -101,14 +77,14 @@ const ShopPage = () => {
 
                     {/* right side */}
                     <div>
-                        <h3 className='text-xl font-medium mb-4'>Products Available{products.length}
+                        <h3 className='text-xl font-medium mb-4'>Showing {startProduct} to {endProduct} of {products.length}
                             {/* Showing {startProduct} to {endProduct} of {totalProducts} products */}
                         </h3>
-                        <ProductCards products={products} />
-                    </div>
-                        {/* pagination controls
+                        <ProductCards products={products}/>
+
+                        {/* paginatin controls */}
                         <div className='mt-6 flex justify-center'>
-                            <button 
+                             <button 
                             disabled={currentPage === 1}
                             onClick={() => handlePageChange(currentPage - 1)}
                             className='px-4 py-2 bg-gray-300 text-gray-700 rounded-md mr-2'>Previous</button>
@@ -128,8 +104,8 @@ const ShopPage = () => {
                             disabled={currentPage === totalPages}
                              onClick={() => handlePageChange(currentPage + 1)}
                             className='px-4 py-2 bg-gray-300 text-gray-700 rounded-md ml-2'>Next</button>
-
-                        </div> */}
+                        </div>
+                    </div>
                 </div>
             </section>
         </>

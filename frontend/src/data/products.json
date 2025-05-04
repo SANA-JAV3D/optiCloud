@@ -18,7 +18,8 @@
     "price": 149.99,
     "oldPrice": 199.99,
     "url": "biconvex.png",
-    "rating": 4.0
+    "rating": 4.0,
+    "author":"admin"
   },
   {
     "_id": 3,
@@ -26,8 +27,9 @@
     "category": "Spherical Singlet Lens",
     "description": "Plano-concave lenses diverge a collimated beam from a virtual focus and are commonly used in Galilean-type beam expanders. Given their negative focal length and negative spherical aberration, plano-concave lenses can be used to balance out aberrations of other lenses in the system. ",
     "price": 199.99,
-    "url": "",
-    "rating": 4.7
+    "url": "plano concave.png",
+    "rating": 4.7,
+    "author":"admin"
   },
   {
     "_id": 4,
@@ -36,7 +38,8 @@
     "description": "Bi-concave lenses have a negative focal length and are best used to diverge a converging beam. Bi-concave lenses can diverge a collimated beam to a virtual focus and are commonly used in Galilean-type beam expanders.",
     "price": 19.99,
     "url":"biconcave.jpg",
-    "rating": 4.2
+    "rating": 4.2,
+    "author":"admin"
   },
   {
     "_id": 5,
@@ -46,7 +49,8 @@
     "price": 29.99,
     "oldPrice": 39.99,
     "url": "positive meniseus.png",
-    "rating": 4.3
+    "rating": 4.3,
+    "author":"admin"
   },
   {
     "_id": 6,
@@ -55,7 +59,8 @@
     "description": "Negative meniscus lenses are designed to minimize spherical aberration. These N-BK7, UV fused silica, calcium fluoride, and zinc selenide lenses consist of a convex surface and a concave surface where the concave surface has the greater radius of curvature. In combination with another lens, a negative meniscus lens will decrease the NA of the system. A negative meniscus lens is a common element in beam expanding applications",
     "price": 89.99,
     "url": "negative meniseus.png",
-    "rating": 4.4
+    "rating": 4.4,
+    "author":"admin"
   },
     {
       "_id": 7,
@@ -65,7 +70,8 @@
       "price": 299.99,
       "oldPrice": 349.99,
       "url": "aspheric diffuser.png",
-      "rating": 4.8
+      "rating": 4.8,
+      "author":"admin"
     },
     {
       "_id": 8,
@@ -74,7 +80,8 @@
       "description": "",
       "price": 39.99,
       "url": "aspheric_condenser.jpg",
-      "rating": 4.1
+      "rating": 4.1,
+      "author":"admin"
     },
     {
       "_id": 9,
@@ -83,7 +90,8 @@
       "description": "",
       "price": 49.99,
       "url": "condenser with diffuser.png",
-      "rating": 4.6
+      "rating": 4.6,
+      "author":"admin"
     },
     {
       "_id": 10,
@@ -93,7 +101,8 @@
       "price": 59.99,
       "oldPrice": 79.99,
       "url": "achromatic_doublets.png",
-      "rating": 3
+      "rating": 3,
+      "author":"admin"
     },
     {
       "_id": 11,
@@ -103,7 +112,8 @@
       "price": 59.99,
       "oldPrice": 79.99,
       "url": "achromatic_triplets.png",
-      "rating": 3
+      "rating": 3,
+      "author":"admin"
     },
     {
       "_id": 12,
@@ -113,7 +123,8 @@
       "price": 59.99,
       "oldPrice": 79.99,
       "url": "cylindrical plano convex.png",
-      "rating": 3
+      "rating": 3,
+      "author":"admin"
     },
     {
       "_id": 13,
@@ -123,7 +134,8 @@
       "price": 59.99,
       "oldPrice": 79.99,
       "url": "cylindrical plano concave.png",
-      "rating": 3
+      "rating": 3,
+      "author":"admin"
     },
     {
       "_id": 14,
@@ -133,7 +145,8 @@
       "price": 59.99,
       "oldPrice": 79.99,
       "url": "acylindrical.png",
-      "rating": 3
+      "rating": 3,
+      "author":"admin"
     },
     {
       "_id": 15,
@@ -142,8 +155,9 @@
       "description": "",
       "price": 59.99,
       "oldPrice": 79.99,
-      "image": "",
-      "rating": 3
+      "url": "powell-prism2.png",
+      "rating": 3,
+      "author":"admin"
     },
     {
       "_id": 16,
@@ -152,7 +166,8 @@
       "description": "",
       "price": 59.99,
       "oldPrice": 79.99,
-      "image": "",
-      "rating": 5
+      "url": "prism.png",
+      "rating": 5,
+      "author":"admin"
     }
   ]
