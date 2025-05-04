@@ -1,7 +1,7 @@
 const express = require('express')
 const mongoose = require("mongoose");
 const cors = require('cors')
-const app = express()
+const app = express();
 require('dotenv').config()
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser')
@@ -22,8 +22,14 @@ app.use(cors({
 
 //all routes
 const authRoutes = require('./src/users/user.route');
+const productRoutes =  require('./src/products/products.route');
+const reviewRoutes= require('./src/reviews/reviews.router');
+const orderRoutes = require('./src/orders/orders.route');
 
 app.use('/api/auth', authRoutes);
+app.use('/api/products', productRoutes);
+app.use('/api/reviews', reviewRoutes);
+app.use('/api/orders', orderRoutes);
 
 main()
   .then(() => console.log("mongodb is successfully connected."))
