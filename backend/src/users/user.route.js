@@ -4,6 +4,12 @@ const generateToken = require("../middleware/generateToken");
 const router = express.Router();
 const verifyToken = require('../middleware/verifyToken');
 
+//check
+router.get("/",(req,res) => {
+  res.send("Hello auth")
+})
+
+
 //Register endpoints
 router.post("/register", async (req, res) => {
   try {
@@ -23,6 +29,7 @@ router.post("/login", async (req, res) => {
       
         const { email, password } = req.body;
         const user = await User.findOne({ email });
+        console.log(user)
         if (!user) {
           return res.status(404).send({ message: "User not found" });
         }

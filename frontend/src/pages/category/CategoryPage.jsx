@@ -1,40 +1,34 @@
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
-import products from "../../data/products.json"
-import ProductCards from '../shop/ProductCards';
+// import products from "../../data/products.json"
+import ProductCards from "../shop/ProductCards";
+import { useFetchAllProductsQuery } from "../../redux/features/products/productsApi";
 
 const CategoryPage = () => {
-   const {categoryName} = useParams();
-   const [filteredProducts, setFilteredProducts] = useState([]);
+  const { categoryName } = useParams();
 
-  
-   useEffect(() => {
-    window.scrollTo(0, 0)
-   },[]);
-
-   useEffect(() =>{
-    const filtered = products.filter((product) => 
-      product.category.toLowerCase() === categoryName.toLowerCase()
-  );
-
-    setFilteredProducts(filtered);
-   } , [categoryName])
-
+  const { data, error, isLoading } = useFetchAllProductsQuery({
+    category: categoryName,
+  });
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
 
   return (
     <>
-    <section className='section__container bg-primary-light'>
-            <h2 className='section__header capitalize'>{categoryName}</h2>
-            <p className='section__subheader'>Browse a diverse range of categoriess</p>
-    </section>
+      <section className="section__container bg-primary-light">
+        <h2 className="section__header capitalize">{categoryName}</h2>
+        <p className="section__subheader">
+          Browse a diverse range of categoriess
+        </p>
+      </section>
 
-    {/* products card */}
-    <div className='section__container'>
-        <ProductCards products={filteredProducts}/>
-    </div>
+      {/* products card */}
+      <div className="section__container">
+        <ProductCards products={data.products} />
+      </div>
     </>
-  )
-}
+  );
+};
 
-export default CategoryPage
+export default CategoryPage;
