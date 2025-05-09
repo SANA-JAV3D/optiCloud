@@ -45,7 +45,7 @@ const SingleProduct = () => {
         <div className="flex flex-col items-center md:flex-row gap-8">
           <div className="md:w-1/2 w-full">
             <img
-              src="{singleProduct?.url}"
+              src={`/assets/${singleProduct?.url}`}
               alt="product"
               className="rounded-md w-full h-auto"
             />
