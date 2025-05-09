@@ -3,13 +3,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { clearCart } from '../../redux/features/cart/cartSlice';
 import { loadStripe } from "@stripe/stripe-js";
 import { getBaseUrl } from '../../utils/baseURL';
+
 const OrderSummary = () => {
   const dispatch = useDispatch()
   const {user} = useSelector(state => state.auth)
   //console.log(user);
   
   const products = useSelector((store) => store.cart.products);
-  console.log(products);
+  //console.log(products);
 
   const { selectedItems, totalPrice, tax, taxRate, grandTotal } = useSelector((store) => store.cart);
 
@@ -20,6 +21,7 @@ const OrderSummary = () => {
     // payment integration
         const makePayment = async (e) => {
             const stripe =  await loadStripe(import.meta.env.VITE_STRIPE_PK);
+           //console.log(stripe);
             const body = {
                 products: products,
                 userId: user?._id
@@ -35,11 +37,19 @@ const OrderSummary = () => {
                 body: JSON.stringify(body)
             })
 
+            //console.log(response);
+
             
             const session =  await response.json()
+
+            if (!session.id) {
+                console.error("No session ID received:", session);
+                alert("Unable to initiate payment session. Please try again.");
+                return;
+              }
             console.log("session: ", session);
     
-            const result =  stripe.redirectToCheckout({
+            const result = stripe.redirectToCheckout({
                 sessionId: session.id
             })
             console.log("Result:",  result)
