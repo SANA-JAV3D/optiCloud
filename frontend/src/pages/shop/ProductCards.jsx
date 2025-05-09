@@ -4,7 +4,7 @@ import RatingStars from "../../components/RatingStars";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/features/cart/cartSlice";
 
-const ProductCards = ({ data }) => {
+const ProductCards = ({ products }) => {
   const dispatch = useDispatch();
 
   const handleAddToCart = (product) => {
@@ -13,7 +13,7 @@ const ProductCards = ({ data }) => {
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-      {data.products.map((product, index) => (
+      {products.map((product, index) => (
         <div key={index} className="product__card">
           <div className="relative">
             <Link to={`/shop/${product._id}`}>

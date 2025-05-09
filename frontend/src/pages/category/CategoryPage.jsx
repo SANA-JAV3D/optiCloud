@@ -25,7 +25,7 @@ const CategoryPage = () => {
 
       {/* products card */}
       <div className="section__container">
-        <ProductCards data={data} />
+        <ProductCards products={data.products} />
       </div>
     </>
   );
