@@ -38,14 +38,14 @@ const UpdateProduct = () => {
         // color: '',
         price: '',
         description: '',
-        image: ''
+        url: ''
     })
 
     const {data: productData, isLoading: isProductLoading, error: fetchError, refetch} = useFetchProductByIdQuery(id);
 
     const [newImage, setNewImage] = useState(null)
 
-    const {name, category, description, image: imageURL, price } = productData?.product || {};
+    const {name, category, description, url: imageURL, price } = productData?.product || {};
 
     const [updateProduct, {isLoading:isUpdating, error: updateError}] = useUpdateProductMutation();
 
@@ -90,7 +90,7 @@ const UpdateProduct = () => {
             category: product.category,
             price: product.price,
             description: product.description,
-            url: newImage || product.image, // ✅ explicitly define only the required fields
+            url: newImage || product.image, 
             author: user?._id,
         };
         try {
