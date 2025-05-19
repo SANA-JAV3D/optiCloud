@@ -45,11 +45,11 @@ const OrderSummary = () => {
     const session = await response.json();
     console.log("session: ", session);
 
-    handleClearCart();
-
     const result = stripe.redirectToCheckout({
       sessionId: session.id,
     });
+    handleClearCart();
+    console.log("Cart Cleared");
     console.log("Result:", result);
     if (result.error) {
       console.log("Error:", result.error);

@@ -5,6 +5,16 @@ const verifyAdmin = require("../middleware/verifyAdmin");
 const router = express.Router();
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
+// Add this helper function at the top of the file
+function isValidUrl(string) {
+  try {
+    new URL(string);
+    return true;
+  } catch (_) {
+    return false;
+  }
+}
+
 // create checkout session
 router.post("/create-checkout-session", async (req, res) => {
     const { products } = req.body;
@@ -15,7 +25,8 @@ router.post("/create-checkout-session", async (req, res) => {
           currency: "usd",
           product_data: {
             name: product.name,
-            images: [product.url],
+            // Only include images if the URL is valid
+            ...(product.url && isValidUrl(product.url) && { images: [product.url] }),
           },
           unit_amount: Math.round(product.price * 100),
         },
@@ -26,15 +37,15 @@ router.post("/create-checkout-session", async (req, res) => {
         payment_method_types: ["card"],
         line_items: lineItems,
         mode: "payment",
-        success_url:"http://localhost:5173/success?session_id={CHECKOUT_SESSION_ID}",
-        cancel_url: "http://localhost:5173/cancel",
+        success_url: "http://localhost:5173/success?session_id={CHECKOUT_SESSION_ID}",
+        cancel_url: "http://localhost:5173/checkout/cancel",
       });
   
       res.json({ id: session.id });
     } catch (error) {
         console.error("Error creating checkout session:", error);
         res.status(500).json({ error: "Failed to create checkout session" });
-      }
+    }
 });
 
 //  confirm payment
