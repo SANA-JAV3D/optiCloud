@@ -82,5 +82,5 @@ export const setGrandTotal = (state) => {
   return setTotalPrice(state) + setTotalPrice(state) * state.taxRate;
 };
 
-export const { addToCart, updateQuantity, removeFromCart, clearCart } = cartSlice.actions;
+export const { addToCart, updateQuantity, removeFromCart, clearCart} = cartSlice.actions;
 export default cartSlice.reducer;

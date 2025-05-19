@@ -9,7 +9,7 @@ const OrderSummary = () => {
   //console.log(user);
 
   const products = useSelector((store) => store.cart.products);
-  console.log(products);
+  //console.log(products);
 
   const { selectedItems, totalPrice, tax, taxRate, grandTotal } = useSelector(
     (store) => store.cart
@@ -23,52 +23,36 @@ const OrderSummary = () => {
 
   // payment integration
   const makePayment = async (e) => {
-    setIsLoading(true);
-    try {
-      const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PK);
-      if (!stripe) {
-        console.error("Stripe failed to load.");
-        return;
+    const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PK);
+    const body = {
+      products: products,
+      userId: user?._id,
+    };
+
+    const headers = {
+      "Content-Type": "application/json",
+    };
+
+    const response = await fetch(
+      `${getBaseUrl()}/api/orders/create-checkout-session`,
+      {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify(body),
       }
+    );
 
-      const body = {
-        products: products,
-        userId: user?._id,
-      };
+    const session = await response.json();
+    console.log("session: ", session);
 
-      const headers = {
-        "Content-Type": "application/json",
-      };
+    handleClearCart();
 
-      const response = await fetch(
-        `${getBaseUrl()}/api/orders/create-checkout-session`,
-        {
-          method: "POST",
-          headers: headers,
-          body: JSON.stringify(body),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to create checkout session");
-      }
-
-      const session = await response.json();
-      console.log("Session:", session);
-
-      handleClearCart();
-
-      const result = await stripe.redirectToCheckout({
-        sessionId: session.id,
-      });
-
-      if (result.error) {
-        console.error("Stripe Checkout Error:", result.error.message);
-      }
-    } catch (error) {
-      console.error("Payment Error:", error.message);
-    } finally {
-      setIsLoading(false);
+    const result = stripe.redirectToCheckout({
+      sessionId: session.id,
+    });
+    console.log("Result:", result);
+    if (result.error) {
+      console.log("Error:", result.error);
     }
   };
 

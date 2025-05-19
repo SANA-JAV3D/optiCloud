@@ -40,7 +40,7 @@ const CartModel = ({ products, isOpen, onClose }) => {
                                     <div key={index} className='flex flex-col md:flex-row md:items-center md:justify-between shadow-md md:p-5 p-2 mb-4'>
                                         <div className='flex items-center'>
                                             <span className='mr-4 px-1 bg-primary text-white rounded-full'>0{index + 1}</span>
-                                            <img src={item.url} alt="" className='size-12 object-cover mr-4' />
+                                            <img src={item?.url} alt="" className='size-12 object-cover mr-4' />
                                             <div>
                                                 <h5 className='text-lg font-medium'>{item.name}</h5>
                                                 <p className='text-gray-600 text-sm'>${Number(item.price).toFixed(2)}</p>

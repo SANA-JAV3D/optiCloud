@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const OrderSchema = new mongoose.Schema(
+const orderSchema = new mongoose.Schema(
   {
     orderId: String,
     products: [
@@ -19,5 +19,5 @@ const OrderSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
-const Order = mongoose.model("Order", OrderSchema);
+const Order = mongoose.model("Order", orderSchema);
 module.exports = Order;
