@@ -56,6 +56,8 @@ const OrderSummary = () => {
       const session = await response.json();
       console.log("Session:", session);
 
+      handleClearCart();
+
       const result = await stripe.redirectToCheckout({
         sessionId: session.id,
       });
