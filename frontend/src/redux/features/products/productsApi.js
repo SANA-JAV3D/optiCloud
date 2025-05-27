@@ -58,6 +58,16 @@ const productsApi = createApi({
       invalidatesTags: ["Products"],
     }),
 
+    updateStock: builder.mutation({
+      query: ({ id, quantity, action }) => ({
+        url: `update-stock/${id}`,
+        method: "PATCH",
+        body: { quantity, action },
+        credentials: "include",
+      }),
+      invalidatesTags: ["Products"],
+    }),
+
     deleteProduct: builder.mutation({
       query: (id) => ({
         url: `/${id}`,
@@ -69,6 +79,6 @@ const productsApi = createApi({
   }),
 });
 
-export const {useFetchAllProductsQuery, useFetchProductByIdQuery, useAddProductMutation, useUpdateProductMutation, useDeleteProductMutation, useFetchRelatedProductsQuery} = productsApi;
+export const { useFetchAllProductsQuery, useFetchProductByIdQuery, useAddProductMutation, useUpdateProductMutation, useDeleteProductMutation, useFetchRelatedProductsQuery, useUpdateStockMutation } = productsApi;
 
 export default productsApi;

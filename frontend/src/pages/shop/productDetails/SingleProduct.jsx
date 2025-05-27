@@ -45,7 +45,7 @@ const SingleProduct = () => {
         <div className="flex flex-col items-center md:flex-row gap-8">
           <div className="md:w-1/2 w-full">
             <img
-              src={`/assets/${singleProduct?.url}`}
+              src={singleProduct?.url.split('/').length <= 1 ? `/assets/${singleProduct?.url}` : singleProduct?.url}
               alt="product"
               className="rounded-md w-full h-auto"
             />
@@ -65,6 +65,18 @@ const SingleProduct = () => {
                 <strong className="mr-2">Category:</strong>
                 {singleProduct?.category}
               </p>
+              <p>
+                <strong className="mr-2">Stock:</strong>
+                <span
+                  className={
+                    singleProduct?.stock > 0 ? "text-green-600" : "text-red-600"
+                  }
+                >
+                  {singleProduct?.stock > 0
+                    ? `${singleProduct.stock} available`
+                    : "Out of stock"}
+                </span>
+              </p>
               <div className="flex gap-1 items-center">
                 <strong>Rating</strong>
                 <p></p>
@@ -77,9 +89,13 @@ const SingleProduct = () => {
                 e.stopPropagation();
                 handleAddToCart(singleProduct);
               }}
-              className="mt-6 px-6 py-3 bg-primary text-white rounded-md"
+              disabled={singleProduct?.stock <= 0}
+              className={`mt-6 px-6 py-3 rounded-md ${singleProduct?.stock > 0
+                ? "bg-primary text-white hover:bg-primary-dark"
+                : "bg-gray-400 text-gray-700 cursor-not-allowed"
+                }`}
             >
-              Add to Cart
+              {singleProduct?.stock > 0 ? "Add to Cart" : "Out of Stock"}
             </button>
           </div>
         </div>

@@ -7,29 +7,29 @@ const router = express.Router();
 
 // post a product
 router.post("/create-product", async (req, res) => {
-    try {
-      const newProduct = new Products({
-        ...req.body,
-      });
+  try {
+    const newProduct = new Products({
+      ...req.body,
+    });
 
-      const savedProduct = await newProduct.save();
-      // calculate review
-      const reviews = await Reviews.find({ productId: savedProduct._id });
-      if (reviews.length > 0) {
-        const totalRating = reviews.reduce(
-          (acc, review) => acc + review.rating,
-          0
-        );
+    const savedProduct = await newProduct.save();
+    // calculate review
+    const reviews = await Reviews.find({ productId: savedProduct._id });
+    if (reviews.length > 0) {
+      const totalRating = reviews.reduce(
+        (acc, review) => acc + review.rating,
+        0
+      );
       const averageRating = totalRating / reviews.length;
       savedProduct.rating = averageRating;
       await savedProduct.save();
     }
-      res.status(201).send(savedProduct);
-    }catch (error) {
-        console.error("Error creating new product", error);
-        res.status(500).send({ message: "Failed to create new product" });
-      }
-    });
+    res.status(201).send(savedProduct);
+  } catch (error) {
+    console.error("Error creating new product", error);
+    res.status(500).send({ message: "Failed to create new product" });
+  }
+});
 
 // get all products
 router.get("/", async (req, res) => {
@@ -72,7 +72,7 @@ router.get("/", async (req, res) => {
     res.status(500).send({ message: "Failed to fetch products" });
   }
 });
-   
+
 //   get single Product
 router.get("/:id", async (req, res) => {
   try {
@@ -116,6 +116,42 @@ router.patch("/update-product/:id", verifyToken, verifyAdmin, async (req, res) =
   } catch (error) {
     console.error("Error updating the product", error);
     res.status(500).send({ message: "Failed to update the product" });
+  }
+});
+
+// Update stock (increase/decrease)
+router.patch("/update-stock/:id", verifyToken, verifyAdmin, async (req, res) => {
+  try {
+    const productId = req.params.id;
+    const { quantity, action } = req.body; // action: 'increase' or 'decrease'
+
+    const product = await Products.findById(productId);
+    if (!product) {
+      return res.status(404).send({ message: "Product not found" });
+    }
+
+    let newStock;
+    if (action === 'increase') {
+      newStock = product.stock + quantity;
+    } else if (action === 'decrease') {
+      newStock = Math.max(0, product.stock - quantity); // Prevent negative stock
+    } else {
+      return res.status(400).send({ message: "Invalid action. Use 'increase' or 'decrease'" });
+    }
+
+    const updatedProduct = await Products.findByIdAndUpdate(
+      productId,
+      { stock: newStock },
+      { new: true }
+    );
+
+    res.status(200).send({
+      message: "Stock updated successfully",
+      product: updatedProduct,
+    });
+  } catch (error) {
+    console.error("Error updating stock", error);
+    res.status(500).send({ message: "Failed to update stock" });
   }
 });
 

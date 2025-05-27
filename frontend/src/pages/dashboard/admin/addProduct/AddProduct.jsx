@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import TextInput from './TextInput';
 import SelectInput from './SelectInput';
 import UploadImage from './UploadImage';
@@ -23,14 +23,14 @@ const AddProduct = () => {
     const [product, setProduct] = useState({
         name: '',
         category: '',
-        // color: '',
         price: '',
-        description: ''
+        description: '',
+        stock: 0
     });
     const [image, setImage] = useState('');
 
-    const [AddProduct, {isLoading, error}] = useAddProductMutation()
-  
+    const [AddProduct, { isLoading, error }] = useAddProductMutation()
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -44,23 +44,25 @@ const AddProduct = () => {
 
     const navigate = useNavigate()
 
-    const handleSubmit = async(e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        if(!product.name || !product.category || !product.price || !product.description) {
-            alert('Please fill all the required fields');
+        if (!product.name || !product.category || !product.price || !product.description || product.stock < 0) {
+            alert('Please fill all the required fields and ensure stock is not negative');
             return;
         }
 
         try {
-            await AddProduct({...product, url: image, author: user?._id}).unwrap();
+            await AddProduct({ ...product, url: image, author: user?._id }).unwrap();
             alert('Product added successfully');
-            setProduct({ name: '',
+            setProduct({
+                name: '',
                 category: '',
-                // color: '',
                 price: '',
-                description: ''})
-                setImage('');
-                navigate("/shop")
+                description: '',
+                stock: 0
+            })
+            setImage('');
+            navigate("/shop")
         } catch (error) {
             console.log("Failed to submit product", error);
         }
@@ -99,28 +101,35 @@ const AddProduct = () => {
                     value={product.price}
                     onChange={handleChange}
                 />
-   
+                <TextInput
+                    label="Stock Quantity"
+                    name="stock"
+                    type="number"
+                    placeholder="0"
+                    value={product.stock}
+                    onChange={handleChange}
+                />
                 <UploadImage
-                name="image"
-                id="image"
-                value={e => setImage(e.target.value)}
-                placeholder='Image'
-                setImage={setImage}
+                    name="image"
+                    id="image"
+                    value={e => setImage(e.target.value)}
+                    placeholder='Image'
+                    setImage={setImage}
                 />
                 <div>
-                <label htmlFor="description" className='block text-sm font-medium text-gray-700'>Description</label>
-                <textarea name="description" id="description"
-                className='add-product-InputCSS'
-                value={product.description}
-                placeholder='Write a product description'
-                onChange={handleChange}
-                ></textarea>
+                    <label htmlFor="description" className='block text-sm font-medium text-gray-700'>Description</label>
+                    <textarea name="description" id="description"
+                        className='add-product-InputCSS'
+                        value={product.description}
+                        placeholder='Write a product description'
+                        onChange={handleChange}
+                    ></textarea>
                 </div>
 
                 <div>
                     <button type='submit'
-                    className='add-product-btn'
-                   
+                        className='add-product-btn'
+
                     >Add Product</button>
                 </div>
 

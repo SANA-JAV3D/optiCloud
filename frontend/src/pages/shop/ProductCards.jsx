@@ -18,7 +18,9 @@ const ProductCards = ({ products }) => {
           <div className="relative">
             <Link to={`/shop/${product._id}`}>
               <img
-                src={`../src/assets/${product.url}`}
+                // src={`../src/assets/${product.url}`}
+                src={product?.url.split('/').length <= 1 ? `../src/assets/${product?.url}` : product?.url}
+
                 alt="product image"
                 className="max-h-96 md:h-64 w-full object-cover hover:scale-105 transition-all duration-300"
               />
@@ -43,6 +45,7 @@ const ProductCards = ({ products }) => {
               ${product.price}{" "}
               {product?.oldPrice ? <s>${product?.oldPrice}</s> : null}
             </p>
+            <p className="text-sm text-gray-600">Stock: {product.stock}</p>
             <RatingStars rating={product.rating} />
           </div>
         </div>
