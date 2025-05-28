@@ -5,7 +5,7 @@ const router = express.Router();
 const verifyToken = require('../middleware/verifyToken');
 
 //check
-router.get("/",(req,res) => {
+router.get("/", (req, res) => {
   res.send("Hello auth")
 })
 
@@ -13,59 +13,59 @@ router.get("/",(req,res) => {
 //Register endpoints
 router.post("/register", async (req, res) => {
   try {
-      const { username, email, password } = req.body;
-      const user = new User({ email, username, password });
-      await user.save();
-      res.status(201).send({ message: "User registered successfully!" });
+    const { username, email, password } = req.body;
+    const user = new User({ email, username, password });
+    await user.save();
+    res.status(201).send({ message: "User registered successfully!" });
   } catch (error) {
-      console.error("Error registering user", error);
-      res.status(500).send({ message: "Error registering user" });
+    console.error("Error registering user", error);
+    res.status(500).send({ message: "Error registering user" });
   }
 });
 
 //login user endpoint
 router.post("/login", async (req, res) => {
-    try {
-      
-        const { email, password } = req.body;
-        const user = await User.findOne({ email });
-        console.log(user)
-        if (!user) {
-          return res.status(404).send({ message: "User not found" });
-        }
-        const isMatch = await user.comparePassword(password);
-        if (!isMatch) {
-          return res.status(401).send({ message: "Password not match" });
-        }
+  try {
 
-        const token = await generateToken(user._id);
-        console.log(token)
-
-        res.cookie("token", token, {
-          httpOnly: true,
-          secure: true,
-          sameSite: "None",
-        });
-        
-        
-        res.status(200).send({
-          message: "Logged in successfully",
-            token,
-            user: {
-              _id: user._id,
-              email: user.email,
-              username: user.username,
-              role: user.role,
-              profileImage: user.profileImage,
-              bio: user.bio,
-              profession: user.profession,
-            },
-        })
-    
-    } catch (error) {
-        console.error("Error logged in user", error);
-        res.status(500).send({ message: "Error logged in user" });
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
+    console.log(user)
+    if (!user) {
+      return res.status(404).send({ message: "User not found" });
     }
+    const isMatch = await user.comparePassword(password);
+    if (!isMatch) {
+      return res.status(401).send({ message: "Password not match" });
+    }
+
+    const token = await generateToken(user._id);
+    console.log(token)
+
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "None",
+    });
+
+
+    res.status(200).send({
+      message: "Logged in successfully",
+      token,
+      user: {
+        _id: user._id,
+        email: user.email,
+        username: user.username,
+        role: user.role,
+        profileImage: user.profileImage,
+        bio: user.bio,
+        profession: user.profession,
+      },
+    })
+
+  } catch (error) {
+    console.error("Error logged in user", error);
+    res.status(500).send({ message: "Error logged in user" });
+  }
 });
 
 // logout endpoint
@@ -90,9 +90,9 @@ router.delete("/users/:id", async (req, res) => {
 });
 
 // get all users
-router.get("/users", async(req, res) => {
+router.get("/users", async (req, res) => {
   try {
-    const users = await User.find({}, "id email role").sort({ createdAt: -1 });
+    const users = await User.find({}, "id username email role createdAt").sort({ createdAt: -1 });
     res.status(200).send(users);
   } catch (error) {
     console.error("Error fetching users", error);
